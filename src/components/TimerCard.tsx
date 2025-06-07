@@ -29,26 +29,15 @@ export default function TimerCard() {
                 <CardTitle className="text-center text-2xl">カウントダウンタイマー</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-                {!isTimerStarted ? (
-                    <div className="flex flex-col gap-4">
-                        <TimeInput
-                            minutes={minutes}
-                            seconds={seconds}
-                            onMinutesChange={setMinutes}
-                            onSecondsChange={setSeconds}
-                        />
-                        <Button onClick={handleStart} className="w-full">
-                            開始
-                        </Button>
-                    </div>
-                ) : (
-                    <>
-                        <CountdownTimer initialMinutes={minutes} initialSeconds={seconds} />
-                        <Button onClick={handleReset} variant="outline" className="w-full">
-                            リセット
-                        </Button>
-                    </>
-                )}
+                <div className="flex flex-col gap-4">
+                    <TimeInput
+                        minutes={minutes}
+                        seconds={seconds}
+                        onMinutesChange={setMinutes}
+                        onSecondsChange={setSeconds}
+                    />
+                    <CountdownTimer initialMinutes={minutes} initialSeconds={seconds} />
+                </div>
             </CardContent>
         </Card>
     );
