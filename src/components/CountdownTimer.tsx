@@ -19,6 +19,13 @@ export default function CountdownTimer({
     const [isRunning, setIsRunning] = useState(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+    // 入力値が変更されたときにタイマーを更新
+    useEffect(() => {
+        if (!isRunning) {
+            setTimeLeft(initialTime);
+        }
+    }, [initialTime, isRunning]);
+
     // カウントダウンロジック
     useEffect(() => {
         if (isRunning && timeLeft > 0) {
@@ -58,10 +65,11 @@ export default function CountdownTimer({
                 <Button
                     onClick={() => setIsRunning((prev) => !prev)}
                     variant={isRunning ? "secondary" : "default"}
+                    className="w-24"
                 >
                     {isRunning ? "一時停止" : "開始"}
                 </Button>
-                <Button onClick={handleReset} variant="outline">
+                <Button onClick={handleReset} variant="outline" className="w-24">
                     リセット
                 </Button>
             </div>
