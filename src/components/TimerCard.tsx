@@ -37,13 +37,15 @@ export default function TimerCard() {
                             onMinutesChange={setMinutes}
                             onSecondsChange={setSeconds}
                         />
-                        <Button
-                            onClick={handleStart}
-                            className="w-full"
-                            disabled={minutes === 0 && seconds === 0}
-                        >
-                            開始
-                        </Button>
+                        <div className="flex justify-center">
+                            <Button
+                                onClick={handleStart}
+                                className="w-24"
+                                disabled={minutes === 0 && seconds === 0}
+                            >
+                                開始
+                            </Button>
+                        </div>
                     </div>
                 ) : (
                     <div className="flex flex-col gap-4">
@@ -51,13 +53,15 @@ export default function TimerCard() {
                             initialMinutes={minutes}
                             initialSeconds={seconds}
                         />
-                        <Button
-                            onClick={handleReset}
-                            className="w-full"
-                            variant="secondary"
-                        >
-                            時間の再設定
-                        </Button>
+                        <div className="flex justify-center">
+                            <Button
+                                onClick={handleReset}
+                                className="w-24"
+                                variant="secondary"
+                            >
+                                時間の再設定
+                            </Button>
+                        </div>
                     </div>
                 )}
             </CardContent>
