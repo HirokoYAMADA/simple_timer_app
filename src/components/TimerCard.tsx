@@ -10,17 +10,35 @@ export default function TimerCard() {
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [isTimerStarted, setIsTimerStarted] = useState(false);
+    const [isPaused, setIsPaused] = useState(false);
+    const [remainingTime, setRemainingTime] = useState(0);
 
     const handleStart = () => {
         if (minutes > 0 || seconds > 0) {
             setIsTimerStarted(true);
+            setIsPaused(false);
+            setRemainingTime(minutes * 60 + seconds);
         }
+    };
+
+    const handlePause = () => {
+        setIsPaused(true);
+    };
+
+    const handleResume = () => {
+        setIsPaused(false);
     };
 
     const handleReset = () => {
         setIsTimerStarted(false);
+        setIsPaused(false);
         setMinutes(0);
         setSeconds(0);
+        setRemainingTime(0);
+    };
+
+    const handleTimeUpdate = (newTimeLeft: number) => {
+        setRemainingTime(newTimeLeft);
     };
 
     return (
@@ -50,16 +68,35 @@ export default function TimerCard() {
                 ) : (
                     <div className="flex flex-col gap-4">
                         <CountdownTimer
-                            initialMinutes={minutes}
-                            initialSeconds={seconds}
+                            initialMinutes={Math.floor(remainingTime / 60)}
+                            initialSeconds={remainingTime % 60}
+                            isPaused={isPaused}
+                            onTimeUpdate={handleTimeUpdate}
                         />
-                        <div className="flex justify-center">
+                        <div className="flex justify-center gap-4">
+                            {isPaused ? (
+                                <Button
+                                    onClick={handleResume}
+                                    className="w-24"
+                                    variant="default"
+                                >
+                                    再開
+                                </Button>
+                            ) : (
+                                <Button
+                                    onClick={handlePause}
+                                    className="w-24"
+                                    variant="secondary"
+                                >
+                                    一時停止
+                                </Button>
+                            )}
                             <Button
                                 onClick={handleReset}
                                 className="w-24"
-                                variant="secondary"
+                                variant="outline"
                             >
-                                時間の再設定
+                                リセット
                             </Button>
                         </div>
                     </div>
